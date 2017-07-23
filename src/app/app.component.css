@@ -1,0 +1,10 @@
+input {
+    display: block !important;
+    line-height: 2 !important;
+    border: 0 !important;
+    /* width: 1 !important; */
+}
+td {
+    margin: 0 !important;
+    padding: 0 !important;
+}
