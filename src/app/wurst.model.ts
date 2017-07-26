@@ -4,6 +4,7 @@ export class Wurst {
     public zt2: number;
     public zt3: number;
     public zt4: number;
+    public gesamt: number;
 
     constructor(name: string, zt1: number, zt2: number, zt3: number, zt4: number){
         this.name = name;
@@ -12,5 +13,4 @@ export class Wurst {
         this.zt3 = zt3;
         this.zt4 = zt4;
     }
-
 }
