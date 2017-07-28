@@ -1,41 +1,40 @@
-<table class="table table-bordered">
-  <thead>
-    <tr>
-      <th class="col-xs-2">#</th>
-      <th class="col-xs-2">Zt 1</th>
-      <th class="col-xs-2">Zt 2</th>
-      <th class="col-xs-2">Zt 3</th>
-      <th class="col-xs-2">Zt 4</th>
-      <th class="col-xs-2">Gesamt</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr *ngFor="let wurst of wursts">
-      <th scope="row"> {{ wurst.name }}</th>
-      <td>
-        <input type="number" id="zt1{{wurst.name}}" class="form-control" [(ngModel)]="wurst.zt1" (input)="onZtChanged($event)">
-      </td>
-      <td>
-        <input type="number" id="zt2{{wurst.name}}" class="form-control" [(ngModel)]="wurst.zt2" (input)="onZtChanged($event)">
-      </td>
-      <td>
-        <input type="number" id="zt3{{wurst.name}}" class="form-control" [(ngModel)]="wurst.zt3" (input)="onZtChanged($event)">
-      </td>
-      <td>
-        <input type="number" id="zt4{{wurst.name}}" class="form-control" [(ngModel)]="wurst.zt4" (input)="onZtChanged($event)">
-      </td>
-      <td>
-        <!-- <input type="number" class="form-control" [value]="getSum(wurst)"> -->
-        <input type="number" class="form-control" [(ngModel)]="wurst.gesamt" (input)="onSumChanged($event)">
-      </td>
-    </tr>
-    <tr>
-      <th scope="row">Gesamt</th>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <th>#</th>      
-    </tr>
-  </tbody>
+<table class="table table-bordered table-responsive">
+    <thead>
+        <tr>
+            <th class="col-xs-2">#</th>
+            <th class="col-xs-2">Zt 1</th>
+            <th class="col-xs-2">Zt 2</th>
+            <th class="col-xs-2">Zt 3</th>
+            <th class="col-xs-2">Zt 4</th>
+            <th class="col-xs-2">Gesamt</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let wurst of wursts; let i = index">
+            <th scope="row"> {{ wurst.name }}</th>
+            <td>
+                <input type="number" id="zt1" class="form-control" [(ngModel)]="wurst.zt1" (input)="onZtChanged($event, i)">
+            </td>
+            <td>
+                <input type="number" id="zt2" class="form-control" [(ngModel)]="wurst.zt2" (input)="onZtChanged($event, i)">
+            </td>
+            <td>
+                <input type="number" id="zt3" class="form-control" [(ngModel)]="wurst.zt3" (input)="onZtChanged($event, i)">
+            </td>
+            <td>
+                <input type="number" id="zt4" class="form-control" [(ngModel)]="wurst.zt4" (input)="onZtChanged($event, i)">
+            </td>
+            <td>
+
+                <input type="number" class="form-control" [(ngModel)]="wurst.gesamt" (input)="onSumChanged($event, i)">
+            </td>
+        </tr>
+        <tr>
+            <th scope="row">Gesamt</th>
+            <td><input type="number" class="form-control" [(ngModel)]="gesamtZt[0]" readonly></td>
+            <td><input type="number" class="form-control" [(ngModel)]="gesamtZt[1]" readonly></td>
+            <td><input type="number" class="form-control" [(ngModel)]="gesamtZt[2]" readonly></td>
+            <td><input type="number" class="form-control" [(ngModel)]="gesamtZt[3]" readonly></td>
+        </tr>
+    </tbody>
 </table>

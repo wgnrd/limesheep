@@ -1,6 +1,5 @@
 import { Component, Input, OnChanges, SimpleChange  } from '@angular/core';
 import { Wurst } from './wurst.model';
-// import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-root',
@@ -13,41 +12,67 @@ export class AppComponent {
   isGesamtcalled = false;
 
   wursts: Wurst[] = [
-    // new Wurst('Kaisekrainer', 10, 80, 5, 5),
-    new Wurst('Wiener', 0, 0, 0, 0)
+    new Wurst('Kaisekrainer', 10, 80, 5, 5),
+    new Wurst('Wiener'      , 20, 30, 40, 10)
   ];
-  // 20 30 40 10
+
+  gesamtZt: number[] = [
+    0, 1, 2, 3
+  ];
+
   getSum(gesamtWurst: Wurst) {
     console.log(gesamtWurst);
     this.wursts[0].gesamt = gesamtWurst.zt1 + gesamtWurst.zt2 + gesamtWurst.zt3 + gesamtWurst.zt4;
   }
 
-  onSumChanged(event: Event) {
-    this.wursts[0].zt1 = this.wursts[0].gesamt / 5;
-    this.wursts[0].zt2 = (this.wursts[0].gesamt / 100) * 30;
-    this.wursts[0].zt3 = (this.wursts[0].gesamt / 100) * 40;
-    this.wursts[0].zt4 = this.wursts[0].gesamt / 10;
+  onSumChanged(event: Event, i: number) {
+    const gesamtProzent = this.wursts[i].gesamt / 100;
+    this.wursts[i].zt1 = gesamtProzent * this.wursts[i].antzt1;
+    this.wursts[i].zt2 = gesamtProzent * this.wursts[i].antzt2;
+    this.wursts[i].zt3 = gesamtProzent * this.wursts[i].antzt3;
+    this.wursts[i].zt4 = gesamtProzent * this.wursts[i].antzt4;
+    this.calculateGesamtZt();
   }
 
-  onZtChanged(event: Event) {
+  onZtChanged(event: Event, i: number) {
     if (event.srcElement.id.startsWith('zt1')) {
-      this.wursts[0].zt2 = (this.wursts[0].zt1 / 2) * 3;
-      this.wursts[0].zt3 = (this.wursts[0].zt1 / 2) * 4;
-      this.wursts[0].zt4 = (this.wursts[0].zt1 / 2);
+      this.wursts[i].zt2 = (this.wursts[i].zt1 / this.wursts[i].antzt1) * this.wursts[i].antzt2;
+      this.wursts[i].zt3 = (this.wursts[i].zt1 / this.wursts[i].antzt1) * this.wursts[i].antzt3;
+      this.wursts[i].zt4 = (this.wursts[i].zt1 / this.wursts[i].antzt1) * this.wursts[i].antzt4;
     }else if ((event.srcElement.id.startsWith('zt2'))) {
-      this.wursts[0].zt1 = (this.wursts[0].zt2 / 3) * 2;
-      this.wursts[0].zt3 = (this.wursts[0].zt2 / 3) * 4;
-      this.wursts[0].zt4 = (this.wursts[0].zt2 / 3);
+      this.wursts[i].zt1 = (this.wursts[i].zt2 / this.wursts[i].antzt2) * this.wursts[i].antzt1;
+      this.wursts[i].zt3 = (this.wursts[i].zt2 / this.wursts[i].antzt2) * this.wursts[i].antzt3;
+      this.wursts[i].zt4 = (this.wursts[i].zt2 / this.wursts[i].antzt2) * this.wursts[i].antzt4;
     }else if ((event.srcElement.id.startsWith('zt3'))) {
-      this.wursts[0].zt1 = (this.wursts[0].zt3 / 4) * 2;
-      this.wursts[0].zt2 = (this.wursts[0].zt3 / 4) * 3;
-      this.wursts[0].zt4 = (this.wursts[0].zt3 / 4);
+      this.wursts[i].zt1 = (this.wursts[i].zt3 / this.wursts[i].antzt3) * this.wursts[i].antzt1;
+      this.wursts[i].zt2 = (this.wursts[i].zt3 / this.wursts[i].antzt3) * this.wursts[i].antzt2;
+      this.wursts[i].zt4 = (this.wursts[i].zt3 / this.wursts[i].antzt3) * this.wursts[i].antzt4;
     }else if ((event.srcElement.id.startsWith('zt4'))) {
-      this.wursts[0].zt1 = (this.wursts[0].zt4) * 2;
-      this.wursts[0].zt2 = (this.wursts[0].zt4) * 3;
-      this.wursts[0].zt3 = (this.wursts[0].zt4) * 4;
+      this.wursts[i].zt1 = (this.wursts[i].zt4) * this.wursts[i].antzt1;
+      this.wursts[i].zt2 = (this.wursts[i].zt4) * this.wursts[i].antzt2;
+      this.wursts[i].zt3 = (this.wursts[i].zt4) * this.wursts[i].antzt3;
     }
 
-    this.wursts[0].gesamt = this.wursts[0].zt1 + this.wursts[0].zt2 + this.wursts[0].zt3 + this.wursts[0].zt4;
+    this.wursts[i].gesamt = this.wursts[i].zt1 + this.wursts[i].zt2 + this.wursts[i].zt3 + this.wursts[i].zt4;
+    this.calculateGesamtZt();
+  }
+  calculateGesamtZt() {
+    for (let index = 0; index < this.gesamtZt.length; index++) {
+      this.gesamtZt[index] = 0;
+    }
+    for (const item of this.wursts){
+      if (item.zt1 != null) {
+        this.gesamtZt[0] += item.zt1;
+        }
+      if (item.zt2 != null) {
+        this.gesamtZt[1] += item.zt2;
+        }
+      if (item.zt3 != null) {
+        this.gesamtZt[2] += item.zt3;
+        }
+      if (item.zt4 != null) {
+        this.gesamtZt[3] += item.zt4;
+        }
+    }
   }
 }
