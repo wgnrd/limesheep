@@ -2,10 +2,13 @@
     <thead>
         <tr>
             <th class="col-xs-2">#</th>
-            <th class="col-xs-2">Zt 1</th>
-            <th class="col-xs-2">Zt 2</th>
-            <th class="col-xs-2">Zt 3</th>
-            <th class="col-xs-2">Zt 4</th>
+            <th class="col-xs-1">Zt 1</th>
+            <th class="col-xs-1">Zt 2</th>
+            <th class="col-xs-1">Zt 3</th>
+            <th class="col-xs-1">Zt 4</th>
+            <th class="col-xs-1">Zt 5</th>
+            <th class="col-xs-1">Zt 6</th>
+            <th class="col-xs-1">Zt 7</th>
             <th class="col-xs-2">Gesamt</th>
         </tr>
     </thead>
@@ -25,16 +28,22 @@
                 <input type="number" id="zt4" class="form-control" [(ngModel)]="wurst.zt4" (input)="onZtChanged($event, i)">
             </td>
             <td>
+                <input type="number" id="zt5" class="form-control" (input)="onZtChanged($event, i)">
+            </td>
+            <td>
+                <input type="number" id="zt6" class="form-control" (input)="onZtChanged($event, i)">
+            </td>
+            <td>
+                <input type="number" id="zt7" class="form-control" (input)="onZtChanged($event, i)">
+            </td>
+            <td>
 
                 <input type="number" class="form-control" [(ngModel)]="wurst.gesamt" (input)="onSumChanged($event, i)">
             </td>
         </tr>
         <tr>
             <th scope="row">Gesamt</th>
-            <td><input type="number" class="form-control" [(ngModel)]="gesamtZt[0]" readonly></td>
-            <td><input type="number" class="form-control" [(ngModel)]="gesamtZt[1]" readonly></td>
-            <td><input type="number" class="form-control" [(ngModel)]="gesamtZt[2]" readonly></td>
-            <td><input type="number" class="form-control" [(ngModel)]="gesamtZt[3]" readonly></td>
+            <td *ngFor="let item of gesamtZt; let i = index"><input type="number" class="form-control" [(ngModel)]="gesamtZt[i]" readonly></td>
         </tr>
     </tbody>
 </table>
