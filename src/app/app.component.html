@@ -1,14 +1,14 @@
 <table class="table table-bordered table-responsive">
     <thead>
         <tr>
-            <th class="col-xs-2">#</th>
-            <th class="col-xs-1">Zt 1</th>
-            <th class="col-xs-1">Zt 2</th>
-            <th class="col-xs-1">Zt 3</th>
-            <th class="col-xs-1">Zt 4</th>
-            <th class="col-xs-1">Zt 5</th>
-            <th class="col-xs-1">Zt 6</th>
-            <th class="col-xs-1">Zt 7</th>
+            <th class="col-xs-3">#</th>
+            <th class="col-xs-1">R1</th>
+            <th class="col-xs-1">R2</th>
+            <th class="col-xs-1">Wiener</th>
+             <th class="col-xs-1">Speck</th>
+              <th class="col-xs-1">Eis</th>
+            <th class="col-xs-1">Brat</th>
+            <th class="col-xs-1">Käse</th>   
             <th class="col-xs-2">Gesamt</th>
         </tr>
     </thead>
@@ -16,26 +16,26 @@
         <tr *ngFor="let wurst of wursts; let i = index">
             <th scope="row"> {{ wurst.name }}</th>
             <td>
-                <input type="number" id="zt1" class="form-control" [(ngModel)]="wurst.zt1" (input)="onZtChanged($event, i)">
+                <input type="number" id="zt1" class="form-control" [(ngModel)]="wurst.zt[0]" (input)="onZtChanged($event, i)">
             </td>
             <td>
-                <input type="number" id="zt2" class="form-control" [(ngModel)]="wurst.zt2" (input)="onZtChanged($event, i)">
+                <input type="number" id="zt2" class="form-control" [(ngModel)]="wurst.zt[1]" (input)="onZtChanged($event, i)">
             </td>
             <td>
-                <input type="number" id="zt3" class="form-control" [(ngModel)]="wurst.zt3" (input)="onZtChanged($event, i)">
+                <input type="number" id="zt3" class="form-control" [(ngModel)]="wurst.zt[2]" (input)="onZtChanged($event, i)">
             </td>
             <td>
-                <input type="number" id="zt4" class="form-control" [(ngModel)]="wurst.zt4" (input)="onZtChanged($event, i)">
+                <input type="number" id="zt4" class="form-control" [(ngModel)]="wurst.zt[3]" (input)="onZtChanged($event, i)">
+            </td>
+             <td>
+                <input type="number" id="zt5" class="form-control" [(ngModel)]="wurst.zt[4]" (input)="onZtChanged($event, i)">
             </td>
             <td>
-                <input type="number" id="zt5" class="form-control" (input)="onZtChanged($event, i)">
+                <input type="number" id="zt6" class="form-control" [(ngModel)]="wurst.zt[5]" (input)="onZtChanged($event, i)">
             </td>
             <td>
-                <input type="number" id="zt6" class="form-control" (input)="onZtChanged($event, i)">
-            </td>
-            <td>
-                <input type="number" id="zt7" class="form-control" (input)="onZtChanged($event, i)">
-            </td>
+                <input type="number" id="zt7" class="form-control" [(ngModel)]="wurst.zt[6]" (input)="onZtChanged($event, i)">
+            </td> 
             <td>
 
                 <input type="number" class="form-control" [(ngModel)]="wurst.gesamt" (input)="onSumChanged($event, i)">

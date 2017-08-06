@@ -12,76 +12,61 @@ export class AppComponent {
   isGesamtcalled = false;
 
   wursts: Wurst[] = [
-    new Wurst('Kaisekrainer', 10, 80, 5, 5),
-    new Wurst('Wiener'      , 20, 30, 40, 10)
+    new Wurst('Kaisekrainer', [10, 65, 5, 2, 8, 3, 7]),
+    new Wurst('Wiener'      , [15, 25, 40, 10, 5, 2, 3])
   ];
 
   gesamtZt: number[] = [
-    0, 1, 2, 3
+    0, 0, 0, 0, 0, 0, 0
   ];
 
-  getSum(gesamtWurst: Wurst) {
-    console.log(gesamtWurst);
-    this.wursts[0].gesamt = gesamtWurst.zt1 + gesamtWurst.zt2 + gesamtWurst.zt3 + gesamtWurst.zt4;
-  }
-
   onSumChanged(event: Event, i: number) {
-    const gesamtProzent = this.wursts[i].gesamt / 100;
-    this.wursts[i].zt1 = gesamtProzent * this.wursts[i].antzt1;
-    this.wursts[i].zt2 = gesamtProzent * this.wursts[i].antzt2;
-    this.wursts[i].zt3 = gesamtProzent * this.wursts[i].antzt3;
-    this.wursts[i].zt4 = gesamtProzent * this.wursts[i].antzt4;
+    for (let j = 0; j < this.wursts[0].zt.length; j++) {
+      this.wursts[i].zt[0] = (this.wursts[i].gesamt / 100) * this.wursts[i].antzt[0];
+    }
     this.calculateGesamtZt();
   }
 
   onZtChanged(event: Event, i: number) {
-    switch (event.srcElement.id) {
-      case 'zt1':
-        const foo1 = this.wursts[i].zt1 / this.wursts[i].antzt1;
-        this.wursts[i].zt2 = foo1 * this.wursts[i].antzt2;
-        this.wursts[i].zt3 = foo1 * this.wursts[i].antzt3;
-        this.wursts[i].zt4 = foo1 * this.wursts[i].antzt4;
-        break;
-      case 'zt2':
-        const foo2 = this.wursts[i].zt2 / this.wursts[i].antzt2;
-        this.wursts[i].zt1 = foo2 * this.wursts[i].antzt1;
-        this.wursts[i].zt3 = foo2 * this.wursts[i].antzt3;
-        this.wursts[i].zt4 = foo2 * this.wursts[i].antzt4;
-        break;
-      case 'zt3':
-        const foo3 = this.wursts[i].zt3 / this.wursts[i].antzt3;
-        this.wursts[i].zt1 = foo3 * this.wursts[i].antzt1;
-        this.wursts[i].zt2 = foo3 * this.wursts[i].antzt2;
-        this.wursts[i].zt4 = foo3 * this.wursts[i].antzt4;
-        break;
-      case 'zt4':
-        const foo4 = this.wursts[i].zt4 / this.wursts[i].antzt4;
-        this.wursts[i].zt1 = foo4 * this.wursts[i].antzt1;
-        this.wursts[i].zt2 = foo4 * this.wursts[i].antzt2;
-        this.wursts[i].zt3 = foo4 * this.wursts[i].antzt3;
-        break;
+    const inputfrom = this.getNumberfromID(event.srcElement.id);
+    const basepercent = this.wursts[i].zt[inputfrom] / this.wursts[i].antzt[inputfrom];
+    this.wursts[i].gesamt = 0;
+
+    for (let j = 0; j < this.wursts[0].zt.length; j++) {
+      if (j !== inputfrom) {
+        this.wursts[i].zt[j] = basepercent * this.wursts[i].antzt[j];
+      }
+      this.wursts[i].gesamt += this.wursts[i].zt[j];
     }
 
-    this.wursts[i].gesamt = this.wursts[i].zt1 + this.wursts[i].zt2 + this.wursts[i].zt3 + this.wursts[i].zt4;
     this.calculateGesamtZt();
   }
   calculateGesamtZt() {
-    for (let index = 0; index < this.gesamtZt.length; index++) {
-      this.gesamtZt[index] = 0;
+    this.gesamtZt.fill(0);
+    for (const item of this.wursts){
     }
     for (const item of this.wursts){
-      if (item.zt1 != null) {
-        this.gesamtZt[0] += item.zt1;
+      for (let i = 0; i < item.zt.length; i++) {
+        if (item.zt[i] != null) {
+          this.gesamtZt[i] += item.zt[i];
+        }
       }
-      if (item.zt2 != null) {
-        this.gesamtZt[1] += item.zt2;
-        }
-      if (item.zt3 != null) {
-        this.gesamtZt[2] += item.zt3;
-        }
-      if (item.zt4 != null) {
-        this.gesamtZt[3] += item.zt4;
-        }
+      // if (item.zt[0] != null) {
+      //   this.gesamtZt[0] += item.zt[0];
+      // }
+      // if (item.zt[1] != null) {
+      //   this.gesamtZt[1] += item.zt[1];
+      //   }
+      // if (item.zt[2] != null) {
+      //   this.gesamtZt[2] += item.zt[2];
+      //   }
+      // if (item.zt[3] != null) {
+      //   this.gesamtZt[3] += item.zt[3];
+      //   }
     }
+  }
+
+  getNumberfromID(controlIndex: string) {
+    return parseInt(controlIndex.substring(2, 3), 10) - 1;
   }
 }
