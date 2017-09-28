@@ -1,0 +1,53 @@
+<table class="table table-bordered table-responsive">
+    <thead>
+        <tr>
+            <th class="col-xs-3">#</th>
+            <th class="col-xs-1">R1</th>
+            <th class="col-xs-1">R2</th>
+            <th class="col-xs-1">Wiener</th>
+             <th class="col-xs-1">Speck</th>
+              <th class="col-xs-1">Eis</th>
+            <th class="col-xs-1">Brat</th>
+            <th class="col-xs-1">Käse</th>   
+            <th class="col-xs-1">Göderl</th>   
+            <th class="col-xs-2">Gesamt</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let wurst of wursts; let i = index">
+            <th scope="row"> {{ wurst.name }}</th>
+            <td>
+                <input type="number" id="zt1" class="form-control" [(ngModel)]="wurst.zt[0]" (input)="onZtChanged($event, i)" [readOnly]="wurst.antzt[0] == 0">
+            </td>
+            <td>
+                <input type="number" id="zt2" class="form-control" [(ngModel)]="wurst.zt[1]" (input)="onZtChanged($event, i)" [readOnly]="wurst.antzt[1] == 0">
+            </td>
+            <td>
+                <input type="number" id="zt3" class="form-control" [(ngModel)]="wurst.zt[2]" (input)="onZtChanged($event, i)" [readOnly]="wurst.antzt[2] == 0">
+            </td>
+            <td>
+                <input type="number" id="zt4" class="form-control" [(ngModel)]="wurst.zt[3]" (input)="onZtChanged($event, i)" [readOnly]="wurst.antzt[3] == 0">
+            </td>
+             <td>
+                <input type="number" id="zt5" class="form-control" [(ngModel)]="wurst.zt[4]" (input)="onZtChanged($event, i)" [readOnly]="wurst.antzt[4] == 0">
+            </td>
+            <td>
+                <input type="number" id="zt6" class="form-control" [(ngModel)]="wurst.zt[5]" (input)="onZtChanged($event, i)" [readOnly]="wurst.antzt[5] == 0">
+            </td>
+            <td>
+                <input type="number" id="zt7" class="form-control" [(ngModel)]="wurst.zt[6]" (input)="onZtChanged($event, i)" [readOnly]="wurst.antzt[6] == 0">
+            </td>
+            <td>
+                <input type="number" id="zt8" class="form-control" [(ngModel)]="wurst.zt[7]" (input)="onZtChanged($event, i)" [readOnly]="wurst.antzt[7] == 0">
+            </td> 
+            <td>
+
+                <input type="number" class="form-control" [(ngModel)]="wurst.gesamt" (input)="onSumChanged($event, i)">
+            </td>
+        </tr>
+        <tr>
+            <th scope="row">Gesamt</th>
+            <td *ngFor="let item of gesamtZt; let i = index"><input type="number" class="form-control" [(ngModel)]="gesamtZt[i]" readonly></td>
+        </tr>
+    </tbody>
+</table>
