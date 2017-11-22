@@ -14,7 +14,7 @@ export class AppComponent {
   // R1, R2, Wiener, Speck, Eis, Brat, Käse, Göderl
   wursts: Wurst[] = [
     new Wurst('Wiener'        , [0, 10, 50, 0, 0, 20, 0, 20]),
-    new Wurst('Käswurst'      , [0,  0, 75, 0, 0, 25, 0,  0]),
+    new Wurst('Käswurst'      , [0,  0, 75, 0, 0, 0, 25,  0]),
     new Wurst('Polnische'     , [20, 0, 45, 0, 0, 20, 0, 15]),
     new Wurst('Cabanossi'     , [ 0, 0, 70, 0, 0, 20, 0, 10]),
     new Wurst('Käskreiner'    , [ 0, 0, 65, 0, 0,  0, 25, 10]),
@@ -63,22 +63,14 @@ export class AppComponent {
           this.gesamtZt[i] += item.zt[i];
         }
       }
-      // if (item.zt[0] != null) {
-      //   this.gesamtZt[0] += item.zt[0];
-      // }
-      // if (item.zt[1] != null) {
-      //   this.gesamtZt[1] += item.zt[1];
-      //   }
-      // if (item.zt[2] != null) {
-      //   this.gesamtZt[2] += item.zt[2];
-      //   }
-      // if (item.zt[3] != null) {
-      //   this.gesamtZt[3] += item.zt[3];
-      //   }
     }
   }
 
   getNumberfromID(controlIndex: string) {
     return parseInt(controlIndex.substring(2, 3), 10) - 1;
+  }
+
+  onPrint() {
+    window.print();
   }
 }
