@@ -27,6 +27,8 @@ export class AppComponent {
     // new Wurst('Braunschweiger', [ 0, 0, 40, 0, 0, 40, 0, 20]),
     new Wurst('Jagdwurst'     , [20, 0, 40, 0, 0, 20, 0, 20]),
     new Wurst('Wildwurst'     , [ 0, 0, 60, 0, 0, 20, 0, 20]),
+    new Wurst('Speckwurst'    , [ 0, 0,  0, 0, 0,16.67,0,83.33]),
+    new Wurst('Jalapena'      , [ 0, 0,58.82,0,0,23.53,0,17.65])
   ];
 
   gesamtZt: number[] = [
