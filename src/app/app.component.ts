@@ -14,10 +14,10 @@ export class AppComponent {
   // R1, R2, Wiener, Speck, Eis, Brat, Käse, Göderl
   wursts: Wurst[] = [
     new Wurst('Wiener', [0, 10, 50, 0, 0, 20, 0, 20]),
-    new Wurst('Käswurst', [0, 0, 75, 0, 0, 25, 0, 0]),
+    new Wurst('Käswurst', [0, 0, 75, 0, 0, 0, 25, 0]),
     new Wurst('Polnische', [20, 0, 45, 0, 0, 20, 0, 15]),
     new Wurst('Cabanossi', [0, 0, 70, 0, 0, 20, 0, 10]),
-    new Wurst('Käskreiner', [0, 0, 65, 0, 0, 0, 25, 10]),
+    new Wurst('Käskreiner', [0, 0, 39, 0, 0, 30, 25, 6]),
     new Wurst('Bratwurstges.', [0, 0, 60, 0, 0, 20, 0, 20]),
     new Wurst('Saumeisen', [0, 0, 60, 0, 0, 20, 0, 20]),
     new Wurst('Grillwurst', [0, 0, 40, 0, 0, 40, 0, 20]),
@@ -29,9 +29,9 @@ export class AppComponent {
     new Wurst('Wildwurst', [0, 0, 60, 0, 0, 20, 0, 20]),
     new Wurst('Speckwurst', [0, 0, 0, 0, 0, 16.67, 0, 83.33]),
     new Wurst('Jalapena', [0, 0, 58.82, 0, 0, 23.53, 0, 17.65]),
-    new Wurst('Tiroler ger.', [0, 0, 10, 0, 0, 4, 0, 0]),
-    new Wurst('Knoblauchw.',  [0, 0, 10, 0, 0, 3, 0, 3]),
-    new Wurst('Zwiebelw.',    [0, 0, 10, 0, 0, 4, 0, 3])
+    new Wurst('Tiroler ger.', [0, 0, 71.42, 0, 0, 28.58, 0, 0]),
+    new Wurst('Knoblauchw.',  [0, 0, 62.5, 0, 0, 18.75, 0, 18.75]),
+    new Wurst('Zwiebelw.',    [0, 0, 58.82, 0, 0, 23.53, 0, 17.65])
   ];
 
   gesamtZt: number[] = [
@@ -41,7 +41,7 @@ export class AppComponent {
   onSumChanged(event: Event, i: number) {
     // console.log(i);
     for (let j = 0; j < this.wursts[0].zt.length; j++) {
-      this.wursts[i].zt[j] = (this.wursts[i].gesamt / 100) * this.wursts[i].antzt[j];
+      this.wursts[i].zt[j] = Math.round(((this.wursts[i].gesamt / 100) * this.wursts[i].antzt[j]) * 100) / 100;
     }
     this.calculateGesamtZt();
   }
@@ -53,9 +53,9 @@ export class AppComponent {
 
     for (let j = 0; j < this.wursts[0].zt.length; j++) {
       if (j !== inputfrom) {
-        this.wursts[i].zt[j] = basepercent * this.wursts[i].antzt[j];
+        this.wursts[i].zt[j] = Math.round(basepercent * this.wursts[i].antzt[j] * 100) / 100;
       }
-      this.wursts[i].gesamt += this.wursts[i].zt[j];
+      this.wursts[i].gesamt += Math.round(this.wursts[i].zt[j] * 100) / 100;
     }
 
     this.calculateGesamtZt();
