@@ -11,3 +11,15 @@ td {
     margin: 0 !important;
     padding: 0 !important;
 }
+
+input:-moz-read-only {
+    color: #ccc;
+  }
+  
+  /* Supported in Blink/WebKit/Edge without a prefix */
+  input:read-only {
+    color: #ccc;
+  }
+  input.readable {
+      color: black;
+  }
