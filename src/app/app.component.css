@@ -23,3 +23,8 @@ input:-moz-read-only {
   input.readable {
       color: black;
   }
+
+  @media only print
+{
+    .btn-primary{ display:none; }
+}

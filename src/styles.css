@@ -19,3 +19,7 @@
 .table>tbody>tr>th {
     padding: 0 8px !important;
 }
+
+body {
+    padding-bottom: 10px;
+}
