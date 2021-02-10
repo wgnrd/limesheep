@@ -48,10 +48,6 @@
                 <input type="number" class="form-control" [(ngModel)]="wurst.gesamt" (input)="onSumChanged($event, i)">
             </td>
         </tr>
-        <!-- <tr>
-            <th>ges. Wildbratw.</th>
-            
-        </tr> -->
         <tr>
             <th scope="row">Gesamt</th>
             <td *ngFor="let item of gesamtZt; let i = index">
