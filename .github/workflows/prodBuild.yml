@@ -1,4 +1,4 @@
-name: Production Build
+name: Deploy master
 
 on: [workflow_dispatch]
 
@@ -8,13 +8,18 @@ jobs:
     
     steps:
       - uses: actions/checkout@v2
-      - name: Production Build 
+      - name: Build 
         run: | 
              npm install 
              npm run build-prod
+             
       - name: Deploy
-        uses: actions/upload-artifact@v2.2.2
+        if: success()
+        # You may pin to the exact commit or the version.
+        # uses: crazy-max/ghaction-github-pages@1510b11c0c2f843eafb8ff41b3da8c467c8d4a9f
+        uses: crazy-max/ghaction-github-pages@v2.2.0
         with:
-          path: dist
-          if-no-files-found: warn
-          retention-days: 2
+          # Git branch where assets will be deployed
+          target_branch: master
+          # Build directory to deploy
+          build_dir: dist
