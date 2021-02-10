@@ -49,7 +49,8 @@ export class AppComponent {
   }
 
   onZtChanged(event: Event, i: number) {
-    const inputfrom = this.getNumberfromID(event.srcElement.id);
+    const target = event.target as HTMLInputElement;
+    const inputfrom = this.getNumberfromID(target.id);
     const basepercent =
       this.wursts[i].zt[inputfrom] / this.wursts[i].antzt[inputfrom];
 
