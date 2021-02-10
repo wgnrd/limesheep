@@ -1,0 +1,15 @@
+language: node_js
+node_js:
+- node
+before_script:
+- npm install -g --silent @angular/cli
+script:
+- ng build --prod
+notifications:
+  email:
+    on_failure: change
+    on_success: change
+deploy:
+  provider: firebase
+  token:
+    secure: b4UZc3YRh6PyY0iIAtASi14jDtvBmiJECwPu/sVZWLpsFP/K60nCFAHWRN1K0z7IMvqY1n3S323tXFPJmgsnw2mkybOd7Km2pnLLl1r2aZwagmpUzcggrhusK2i/yq0pLZaX+37Z4Xig3SQy+pH3gbgY+n5Gdg22NpXnAoSngeJFofNX2igvepP9JtXjzpfzgfgJ+G+qMmr+hXle3CWes/sLxpqmNtWZKexZbq9XAOTkTMW71lpM1eWzfCCeTx0OB2J7Uj7hRB6Zu8zkFgMYxkFOkk/qWmF70d66vTpCwvwozQTWvvBYm4gOu51/GyR/UkgwOpLGGJy8erc2oWXXm1NYVLl0t7T1hsbp48d4j/nhCtLhMkiyk6MppCFNdP6IqZb/I8QjcpZM9i8VZX1/3E6iALYOBJ9Eqny3pRHqEZ6XBoSU1Y1yM66FnNhb+N8dhFrvQre6eKY1kn9T081fhBbxnklWDmrYGuYYRbPaq4E302RlTSc7s8c4ZKRM5E48ByufSaoGUiovtLjdRIXw3X0swzAHE4F0ETs+aiBn4UkG97fVP1HrU0WLZEwU0djnhpYygQlf39vjxPSXb0Xui2y9fWmNhyZ98SzZ+DioWR0cFAmxZUaVceOcudSMIPrJIN99nw0VnyQel6Bh+ZumaWRJNQ4ic4ZeybAPC3Nf+Vg=
