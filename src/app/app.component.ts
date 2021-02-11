@@ -1,4 +1,4 @@
-import { Component, Input, OnChanges, SimpleChange } from "@angular/core";
+import { Component } from "@angular/core";
 import { Wurst } from "./wurst.model";
 
 @Component({
@@ -24,7 +24,6 @@ export class AppComponent {
     new Wurst("Leberkäs", [18.19, 0, 0, 24.07, 25.93, 31.48, 0, 0, 0]),
     new Wurst("Rindsbrat", [0, 67, 0, 0, 0, 33, 0, 0, 0]),
     new Wurst("Weises Brat", [0, 0, 0, 34, 33, 33, 0, 0, 0]),
-    // new Wurst('Braunschweiger', [ 0, 0, 40, 0, 0, 40, 0, 20]),
     new Wurst("Jagdwurst", [20, 0, 0, 40, 0, 0, 20, 0, 20]),
     new Wurst("Wildwurst", [0, 0, 0, 60, 0, 0, 20, 0, 20]),
     new Wurst("Speckwurst", [0, 0, 0, 0, 0, 0, 16.67, 0, 83.33]),
