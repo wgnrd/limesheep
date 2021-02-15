@@ -37,51 +37,53 @@ export class AppComponent {
 
   gesamtZt: number[] = [0, 0, 0, 0, 0, 0, 0, 0, 0];
 
+  // if the sum is changed, change the ingredients in this sausage
   onSumChanged(event: Event, i: number) {
-    for (let j = 0; j < this.wursts[0].zt.length; j++) {
-      this.wursts[i].zt[j] =
+    for (let j = 0; j < this.wursts[0].ingredients.length; j++) {
+      this.wursts[i].ingredients[j] =
         Math.round(
           (this.wursts[i].gesamt / 100) * this.wursts[i].antzt[j] * 100
         ) / 100;
     }
-    this.calculateGesamtZt();
+    this.calculateColumnSum();
   }
 
+  // if the ingredient is changed, set the other ingredients 
   onZtChanged(event: Event, i: number) {
     const target = event.target as HTMLInputElement;
-    const inputfrom = this.getNumberfromID(target.id);
+    const ingredientId = this.getNumberfromID(target.id);
     const basepercent =
-      this.wursts[i].zt[inputfrom] / this.wursts[i].antzt[inputfrom];
+      this.wursts[i].ingredients[ingredientId] / this.wursts[i].antzt[ingredientId];
 
     this.wursts[i].gesamt = 0;
     if (this.wursts[i].name !== "ges. Wildbratwurst") {
-      for (let j = 0; j < this.wursts[0].zt.length; j++) {
-        if (j !== inputfrom) {
-          this.wursts[i].zt[j] =
+      for (let j = 0; j < this.wursts[0].ingredients.length; j++) {
+        if (j !== ingredientId) {
+          this.wursts[i].ingredients[j] =
             Math.round(basepercent * this.wursts[i].antzt[j] * 100) / 100;
         }
-        this.wursts[i].gesamt += Math.round(this.wursts[i].zt[j] * 100) / 100;
+        this.wursts[i].gesamt += Math.round(this.wursts[i].ingredients[j] * 100) / 100;
       }
     }
 
-    this.calculateGesamtZt();
+    this.calculateColumnSum();
   }
 
-  calculateGesamtZt() {
+  calculateColumnSum() {
     this.gesamtZt.fill(0);
     for (const item of this.wursts) {
-      for (let i = 0; i < item.zt.length; i++) {
-        if (item.zt[i] != null) {
-          this.gesamtZt[i] += item.zt[i];
+      for (let i = 0; i < item.ingredients.length; i++) {
+        if (item.ingredients[i] != null) {
+          this.gesamtZt[i] += item.ingredients[i];
           this.specialKaeswurst(item, i);
         }
       }
     }
   }
 
-  private specialKaeswurst(item: Wurst, i: number) {
-    if (item.name === "Käswurst" && i === 3) {
-      this.gesamtZt[i] -= item.zt[i];
+  private specialKaeswurst(kasewurst: Wurst, ingredientId: number) {
+    if (kasewurst.name === "Käswurst" && ingredientId === 3) {
+      this.gesamtZt[ingredientId] -= kasewurst.ingredients[ingredientId];
     }
   }
 
