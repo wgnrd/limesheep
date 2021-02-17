@@ -15,7 +15,7 @@
         </tr>
     </thead>
     <tbody>
-        <tr *ngFor="let wurst of wursts; let i = index">
+        <tr *ngFor="let wurst of sausages; let i = index">
             <th scope="row"> {{ wurst.name }}</th>
             <td>
                 <input type="number" id="zt1" class="form-control" [(ngModel)]="wurst.ingredients[0]" (input)="onZtChanged($event, i)" [readOnly]="wurst.antzt[0] == 0">

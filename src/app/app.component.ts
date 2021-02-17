@@ -12,7 +12,7 @@ export class AppComponent {
   isGesamtcalled = false;
 
   // R1, R2, S1, Wiener, Speck, Eis, Brat, Käse, Göderl
-  wursts: Wurst[] = [
+  sausages: Wurst[] = [
     new Wurst("Wiener", [0, 10, 0, 50, 0, 0, 20, 0, 20]),
     new Wurst("Käswurst", [0, 0, 0, 75, 0, 0, 0, 25, 0]),
     new Wurst("Polnische", [20, 0, 45, 0, 0, 0, 20, 0, 15]),
@@ -39,10 +39,10 @@ export class AppComponent {
 
   // if the sum is changed, change the ingredients in this sausage
   onSumChanged(event: Event, i: number) {
-    for (let j = 0; j < this.wursts[0].ingredients.length; j++) {
-      this.wursts[i].ingredients[j] =
+    for (let j = 0; j < this.sausages[0].ingredients.length; j++) {
+      this.sausages[i].ingredients[j] =
         Math.round(
-          (this.wursts[i].gesamt / 100) * this.wursts[i].antzt[j] * 100
+          (this.sausages[i].gesamt / 100) * this.sausages[i].antzt[j] * 100
         ) / 100;
     }
     this.calculateColumnSum();
@@ -53,16 +53,16 @@ export class AppComponent {
     const target = event.target as HTMLInputElement;
     const ingredientId = this.getNumberfromID(target.id);
     const basepercent =
-      this.wursts[i].ingredients[ingredientId] / this.wursts[i].antzt[ingredientId];
+      this.sausages[i].ingredients[ingredientId] / this.sausages[i].antzt[ingredientId];
 
-    this.wursts[i].gesamt = 0;
-    if (this.wursts[i].name !== "ges. Wildbratwurst") {
-      for (let j = 0; j < this.wursts[0].ingredients.length; j++) {
+    this.sausages[i].gesamt = 0;
+    if (this.sausages[i].name !== "ges. Wildbratwurst") {
+      for (let j = 0; j < this.sausages[0].ingredients.length; j++) {
         if (j !== ingredientId) {
-          this.wursts[i].ingredients[j] =
-            Math.round(basepercent * this.wursts[i].antzt[j] * 100) / 100;
+          this.sausages[i].ingredients[j] =
+            Math.round(basepercent * this.sausages[i].antzt[j] * 100) / 100;
         }
-        this.wursts[i].gesamt += Math.round(this.wursts[i].ingredients[j] * 100) / 100;
+        this.sausages[i].gesamt += Math.round(this.sausages[i].ingredients[j] * 100) / 100;
       }
     }
 
@@ -71,7 +71,7 @@ export class AppComponent {
 
   calculateColumnSum() {
     this.gesamtZt.fill(0);
-    for (const item of this.wursts) {
+    for (const item of this.sausages) {
       for (let i = 0; i < item.ingredients.length; i++) {
         if (item.ingredients[i] != null) {
           this.gesamtZt[i] += item.ingredients[i];
