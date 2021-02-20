@@ -49,20 +49,20 @@ export class AppComponent {
   }
 
   // if the ingredient is changed, set the other ingredients 
-  onZtChanged(event: Event, i: number) {
+  onZtChanged(event: Event, sausageId: number, ingredientId: number) {
     const target = event.target as HTMLInputElement;
-    const ingredientId = this.getNumberfromID(target.id);
+    // const ingredientId = this.getNumberfromID(target.id);
     const basepercent =
-      this.sausages[i].ingredients[ingredientId] / this.sausages[i].antzt[ingredientId];
+      this.sausages[sausageId].ingredients[ingredientId] / this.sausages[sausageId].antzt[ingredientId];
 
-    this.sausages[i].gesamt = 0;
-    if (this.sausages[i].name !== "ges. Wildbratwurst") {
+    this.sausages[sausageId].gesamt = 0;
+    if (this.sausages[sausageId].name !== "ges. Wildbratwurst") {
       for (let j = 0; j < this.sausages[0].ingredients.length; j++) {
         if (j !== ingredientId) {
-          this.sausages[i].ingredients[j] =
-            Math.round(basepercent * this.sausages[i].antzt[j] * 100) / 100;
+          this.sausages[sausageId].ingredients[j] =
+            Math.round(basepercent * this.sausages[sausageId].antzt[j] * 100) / 100;
         }
-        this.sausages[i].gesamt += Math.round(this.sausages[i].ingredients[j] * 100) / 100;
+        this.sausages[sausageId].gesamt += Math.round(this.sausages[sausageId].ingredients[j] * 100) / 100;
       }
     }
 
@@ -85,10 +85,6 @@ export class AppComponent {
     if (kasewurst.name === "Käswurst" && ingredientId === 3) {
       this.gesamtZt[ingredientId] -= kasewurst.ingredients[ingredientId];
     }
-  }
-
-  getNumberfromID(controlIndex: string) {
-    return parseInt(controlIndex.substring(2, 3), 10) - 1;
   }
 
   printTable() {
