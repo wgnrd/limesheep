@@ -50,8 +50,6 @@ export class AppComponent {
 
   // if the ingredient is changed, set the other ingredients 
   onZtChanged(event: Event, sausageId: number, ingredientId: number) {
-    const target = event.target as HTMLInputElement;
-    // const ingredientId = this.getNumberfromID(target.id);
     const basepercent =
       this.sausages[sausageId].ingredients[ingredientId] / this.sausages[sausageId].antzt[ingredientId];
 
@@ -60,9 +58,9 @@ export class AppComponent {
       for (let j = 0; j < this.sausages[0].ingredients.length; j++) {
         if (j !== ingredientId) {
           this.sausages[sausageId].ingredients[j] =
-            Math.round(basepercent * this.sausages[sausageId].antzt[j] * 100) / 100;
+            this.RoundTwoDigits(basepercent * this.sausages[sausageId].antzt[j]);
         }
-        this.sausages[sausageId].gesamt += Math.round(this.sausages[sausageId].ingredients[j] * 100) / 100;
+        this.sausages[sausageId].gesamt += this.RoundTwoDigits(this.sausages[sausageId].ingredients[j]);
       }
     }
 
@@ -85,6 +83,10 @@ export class AppComponent {
     if (kasewurst.name === "Käswurst" && ingredientId === 3) {
       this.gesamtZt[ingredientId] -= kasewurst.ingredients[ingredientId];
     }
+  }
+
+  private RoundTwoDigits(number: number) {
+    return Math.round(number * 100) / 100;
   }
 
   printTable() {
