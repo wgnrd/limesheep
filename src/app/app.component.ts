@@ -12,7 +12,7 @@ export class AppComponent {
   isGesamtcalled = false;
 
   // R1, R2, S1, Wiener, Speck, Eis, Brat, Käse, Göderl
-  wursts: Wurst[] = [
+  sausages: Wurst[] = [
     new Wurst("Wiener", [0, 10, 0, 50, 0, 0, 20, 0, 20]),
     new Wurst("Käswurst", [0, 0, 0, 75, 0, 0, 0, 25, 0]),
     new Wurst("Polnische", [20, 0, 45, 0, 0, 0, 20, 0, 15]),
@@ -37,56 +37,56 @@ export class AppComponent {
 
   gesamtZt: number[] = [0, 0, 0, 0, 0, 0, 0, 0, 0];
 
+  // if the sum is changed, change the ingredients in this sausage
   onSumChanged(event: Event, i: number) {
-    for (let j = 0; j < this.wursts[0].zt.length; j++) {
-      this.wursts[i].zt[j] =
+    for (let j = 0; j < this.sausages[0].ingredients.length; j++) {
+      this.sausages[i].ingredients[j] =
         Math.round(
-          (this.wursts[i].gesamt / 100) * this.wursts[i].antzt[j] * 100
+          (this.sausages[i].gesamt / 100) * this.sausages[i].antzt[j] * 100
         ) / 100;
     }
-    this.calculateGesamtZt();
+    this.calculateColumnSum();
   }
 
-  onZtChanged(event: Event, i: number) {
-    const target = event.target as HTMLInputElement;
-    const inputfrom = this.getNumberfromID(target.id);
+  // if the ingredient is changed, set the other ingredients 
+  onZtChanged(event: Event, sausageId: number, ingredientId: number) {
     const basepercent =
-      this.wursts[i].zt[inputfrom] / this.wursts[i].antzt[inputfrom];
+      this.sausages[sausageId].ingredients[ingredientId] / this.sausages[sausageId].antzt[ingredientId];
 
-    this.wursts[i].gesamt = 0;
-    if (this.wursts[i].name !== "ges. Wildbratwurst") {
-      for (let j = 0; j < this.wursts[0].zt.length; j++) {
-        if (j !== inputfrom) {
-          this.wursts[i].zt[j] =
-            Math.round(basepercent * this.wursts[i].antzt[j] * 100) / 100;
+    this.sausages[sausageId].gesamt = 0;
+    if (this.sausages[sausageId].name !== "ges. Wildbratwurst") {
+      for (let j = 0; j < this.sausages[0].ingredients.length; j++) {
+        if (j !== ingredientId) {
+          this.sausages[sausageId].ingredients[j] =
+            this.RoundTwoDigits(basepercent * this.sausages[sausageId].antzt[j]);
         }
-        this.wursts[i].gesamt += Math.round(this.wursts[i].zt[j] * 100) / 100;
+        this.sausages[sausageId].gesamt += this.RoundTwoDigits(this.sausages[sausageId].ingredients[j]);
       }
     }
 
-    this.calculateGesamtZt();
+    this.calculateColumnSum();
   }
 
-  calculateGesamtZt() {
+  calculateColumnSum() {
     this.gesamtZt.fill(0);
-    for (const item of this.wursts) {
-      for (let i = 0; i < item.zt.length; i++) {
-        if (item.zt[i] != null) {
-          this.gesamtZt[i] += item.zt[i];
+    for (const item of this.sausages) {
+      for (let i = 0; i < item.ingredients.length; i++) {
+        if (item.ingredients[i] != null) {
+          this.gesamtZt[i] += item.ingredients[i];
           this.specialKaeswurst(item, i);
         }
       }
     }
   }
 
-  private specialKaeswurst(item: Wurst, i: number) {
-    if (item.name === "Käswurst" && i === 3) {
-      this.gesamtZt[i] -= item.zt[i];
+  private specialKaeswurst(kasewurst: Wurst, ingredientId: number) {
+    if (kasewurst.name === "Käswurst" && ingredientId === 3) {
+      this.gesamtZt[ingredientId] -= kasewurst.ingredients[ingredientId];
     }
   }
 
-  getNumberfromID(controlIndex: string) {
-    return parseInt(controlIndex.substring(2, 3), 10) - 1;
+  private RoundTwoDigits(number: number) {
+    return Math.round(number * 100) / 100;
   }
 
   printTable() {
