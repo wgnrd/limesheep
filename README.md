@@ -1,6 +1,6 @@
 # Limesheep
 
-A prototype of a somewhat complicated excel sheet. But its done in angular.
+A simple excel sheet. But its done in angular.
 
 ## Deploy
 ```bash
