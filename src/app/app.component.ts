@@ -4,7 +4,7 @@ import { Wurst } from "./wurst.model";
 @Component({
   selector: "app-root",
   templateUrl: "./app.component.html",
-  styleUrls: ["./app.component.css"]
+  styleUrls: ["./app.component.css"],
 })
 export class AppComponent {
   title = "app";
@@ -31,7 +31,7 @@ export class AppComponent {
     new Wurst("Tiroler ger.", [0, 0, 71.42, 0, 0, 0, 28.58, 0, 0]),
     new Wurst("Knoblauchw.", [0, 0, 0, 62.5, 0, 0, 18.75, 0, 18.75]),
     new Wurst("Zwiebelw.", [0, 0, 0, 58.82, 0, 0, 23.53, 0, 17.65]),
-    new Wurst("Krakauer", [0, 0, 71.42, 0, 0, 0, 28.58, 0, 0])
+    new Wurst("Krakauer", [0, 0, 71.42, 0, 0, 0, 28.58, 0, 0]),
   ];
 
   gesamtZt: number[] = [0, 0, 0, 0, 0, 0, 0, 0, 0];
@@ -47,12 +47,25 @@ export class AppComponent {
     this.calculateColumnSum();
   }
 
-  // if the ingredient is changed, set the other ingredients 
+  // if the ingredient is changed, set the other ingredients
   onZtChanged(event: Event, sausageId: number, ingredientId: number) {
     const basepercent =
-      this.sausages[sausageId].ingredients[ingredientId] / this.sausages[sausageId].antzt[ingredientId];
+      this.sausages[sausageId].ingredients[ingredientId] /
+      this.sausages[sausageId].antzt[ingredientId];
 
     this.sausages[sausageId].gesamt = 0;
+
+    for (let j = 0; j < this.sausages[0].ingredients.length; j++) {
+      if (j !== ingredientId) {
+        this.sausages[sausageId].ingredients[j] = this.RoundTwoDigits(
+          basepercent * this.sausages[sausageId].antzt[j]
+        );
+      }
+      this.sausages[sausageId].gesamt += this.RoundTwoDigits(
+        this.sausages[sausageId].ingredients[j]
+      );
+    }
+
     this.calculateColumnSum();
   }
 
